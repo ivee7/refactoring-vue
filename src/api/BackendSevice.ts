@@ -1,12 +1,13 @@
-import plays from './plays.json';
-import invoices from './invoices.json';
+import plays from "./plays.json";
+import invoices from "./invoices.json";
+import type { TPlay } from "../types";
 
 export class BackendService {
-    getPlays() {
-        return plays;
-    }
+  static getPlays(): Promise<TPlay[]> {
+    return new Promise((res) => res(plays as TPlay[]));
+  }
 
-    getInvoices() {
-        return invoices;
-    }
+  static getInvoices() {
+    return invoices;
+  }
 }
