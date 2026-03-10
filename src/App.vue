@@ -9,10 +9,16 @@ const plays = apiService.getPlays();
 
 var user = "BigCo";
 
-function statement(invoice, plays) {
+const playsObj = plays.reduce((acc, { id, name, type }) => {
+  acc[id] = { name, type };
+
+  return acc;
+}, {});
+
+function statement(invoice, playsObj) {
   let totalAmount = 0;
   let volumeCredits = 0;
-  let result = `Счёт для ${invoice.customer}:\n`;
+  let result = `Счёт для ${invoice.customer.name}:\n`;
   const format = new Intl.NumberFormat("ru-RU", {
     style: "currency",
     currency: "RUB",
@@ -20,34 +26,34 @@ function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    const play = plays[perf.playID];
+    const play = playsObj[perf.playId];
     let thisAmount = 0;
 
     switch (play.type) {
       case "tragedy":
         thisAmount = 40000;
-        if (perf.audience > 30) {
-          thisAmount += 1000 * (perf.audience - 30);
+        if (perf.audienceCount > 30) {
+          thisAmount += 1000 * (perf.audienceCount - 30);
         }
         break;
       case "comedy":
         thisAmount = 30000;
-        if (perf.audience > 20) {
-          thisAmount += 10000 + 500 * (perf.audience - 20);
+        if (perf.audienceCount > 20) {
+          thisAmount += 10000 + 500 * (perf.audienceCount - 20);
         }
-        thisAmount += 300 * perf.audience;
+        thisAmount += 300 * perf.audienceCount;
         break;
       default:
         throw new Error(`неизвестный жанр: ${play.type}`);
     }
 
     // Добавление бонусных баллов
-    volumeCredits += Math.max(perf.audience - 30, 0);
+    volumeCredits += Math.max(perf.audienceCount - 30, 0);
     // Дополнительный бонус за комедию
-    if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+    if ("comedy" === play.type) volumeCredits += Math.floor(perf.audienceCount / 5);
 
     // Вывод строки счёта
-    result += `- ${play.name}: ${format(thisAmount / 100)} (${perf.audience} мест);\n`;
+    result += `- ${play.name}: ${format(thisAmount / 100)} (${perf.audienceCount} мест);\n`;
     totalAmount += thisAmount;
   }
 
@@ -57,7 +63,10 @@ function statement(invoice, plays) {
   return result;
 }
 
-const result = statement(invoices.find((item) => item.customer === user), plays);
+const result = statement(
+  invoices.find((item) => item.customer.id === user),
+  playsObj,
+);
 </script>
 
 <template>

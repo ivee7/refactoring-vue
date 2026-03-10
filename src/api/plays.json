@@ -1,5 +1,7 @@
-{
-  "hamlet": { "name": "Hamlet", "type": "tragedy" },
-  "as-like": { "name": "As You Like It", "type": "comedy" },
-  "othello": { "name": "Othello", "type": "tragedy" }
-}
+[
+  { "name": "Hamlet", "type": "tragedy", "id": "hamlet" },
+  { "name": "As You Like It", "type": "comedy", "id": "as-like" },
+  { "name": "Othello", "type": "tragedy", "id": "othello" },
+  { "name": "Cherry Orchard", "type": "comedy", "id": "cherry-orchard" },
+  { "name": "Girl without dowry", "type": "drama", "id": "girl-without-dowry" }
+]
