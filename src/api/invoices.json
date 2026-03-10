@@ -1,10 +1,36 @@
 [
   {
-    "customer": "BigCo",
+    "customer": {
+      "id": "BigCo",
+      "name": "Big Company"
+    },
     "performances": [
-      { "playID": "hamlet", "audience": 55 },
-      { "playID": "as-like", "audience": 35 },
-      { "playID": "othello", "audience": 40 }
-    ]
+      { "playId": "hamlet", "audienceCount": 55 },
+      { "playId": "as-like", "audienceCount": 35 },
+      { "playId": "othello", "audienceCount": 40 }
+    ],
+    "purchaseDate": 1773130078190
+  },
+  {
+    "customer": {
+      "id": "Cisco",
+      "name": "Cisco Inc"
+    },
+    "performances": [
+      { "playId": "cherry-orchard", "audienceCount": 7 },
+      { "playId": "othello", "audienceCount": 4 }
+    ],
+    "purchaseDate": 1773130078190
+  },
+  {
+    "customer": {
+      "id": "BigCo",
+      "name": "Big Company"
+    },
+    "performances": [
+      { "playId": "cherry-orchard", "audienceCount": 22 },
+      { "playId": "as-like", "audienceCount": 14 }
+    ],
+    "purchaseDate": 1773134696053
   }
 ]
